@@ -1,6 +1,6 @@
 require 'haml'
 
-module BetFair
+module Betfair
 
   # Utility class to render a SOAP request from a haml file, embedding data
   # elements as necessary
