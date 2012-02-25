@@ -8,10 +8,10 @@ config = {
   "global_endpoint" => "https://api.betfair.com/global/v3/BFGlobalService"
 }
 
-describe BetFair::Client do
+describe Betfair::Client do
 
   before :all do
-    @bf_client = BetFair::Client.new(config)
+    @bf_client = Betfair::Client.new(config)
   end
 
   describe "get_all_markets" do

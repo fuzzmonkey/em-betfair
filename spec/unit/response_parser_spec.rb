@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe BetFair::ResponseParser do
+describe Betfair::ResponseParser do
 
   # Dummy class to test module
-  module BetFair
+  module Betfair
     class Foo; include ResponseParser; end
   end
 
   before do
-    @parser = BetFair::Foo.new
+    @parser = Betfair::Foo.new
   end
 
   it "should parse login response" do

@@ -9,10 +9,10 @@ config = {
   "global_endpoint" => "http://global.betfair.com" #"https://api.betfair.com/global/v3/BFGlobalService"
 }
 
-describe BetFair::Client do
+describe Betfair::Client do
 
   before :all do
-    @bf_client = BetFair::Client.new(config)
+    @bf_client = Betfair::Client.new(config)
   end
 
   describe "with no session token" do

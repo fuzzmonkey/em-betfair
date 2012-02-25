@@ -1,4 +1,4 @@
-module BetFair
+module Betfair
 
   # TODO - version this to handle changes in the API
   module ResponseParser

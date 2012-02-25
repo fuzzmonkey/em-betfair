@@ -3,7 +3,7 @@ require 'em-http'
 require 'nokogiri'
 #require 'tzinfo'
 
-module BetFair
+module Betfair
 
   BETFAIR_TIME_ZONES = {"RSA"=>"Africa/Johannesburg", "AST"=>"US/Arizona", "MST"=>"US/Mountain", "JPT"=>"Japan", "HK"=>"Hongkong", "GMT"=>"GMT", "PKT"=>"Etc/GMT-5", "UAE"=>"Asia/Dubai", "CST"=>"US/Central", "AKST"=>"US/Alaska", "BRT"=>"Brazil/East", "INT"=>"Asia/Calcutta", "SMT"=>"America/Santiago", "MSK"=>"Europe/Moscow", "AWST"=>"Australia/Perth", "PST"=>"US/Pacific", "EST"=>"US/Eastern", "KMT"=>"Jamaica", "CET"=>"CET", "ANST"=>"Australia/Darwin", "ACST"=>"Australia/Adelaide", "NZT"=>"NZ", "UKT"=>"Europe/London", "AMT"=>"Brazil/West", "THAI"=>"Asia/Bangkok", "SJMT"=>"America/Costa_Rica", "HST"=>"US/Hawaii", "EET"=>"EET", "AEST"=>"Australia/Sydney", "IEST"=>"America/Indiana/Indianapolis", "AQST"=>"Australia/Queensland"}
 
@@ -48,7 +48,7 @@ module BetFair
 
     def build_request service_name, action, data={}, block
       request_data = { :data => data.merge!({"session_token" => @session_token}) }
-      soap_req = BetFair::SOAPRenderer.new( service_name, action ).render( request_data )
+      soap_req = Betfair::SOAPRenderer.new( service_name, action ).render( request_data )
       url = get_endpoint service_name
       headers = { 'SOAPAction' => action, 'Accept-Encoding' => 'gzip,deflate', 'Content-type' => 'text/xml;charset=UTF-8' }
       req = EventMachine::HttpRequest.new(url).post :body => soap_req, :head => headers

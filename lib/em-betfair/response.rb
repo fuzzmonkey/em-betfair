@@ -1,4 +1,4 @@
-module BetFair
+module Betfair
 
   class Response
     include ResponseParser
