@@ -13,7 +13,7 @@ module Betfair
 
     def initialize config
       @config = config
-      @session_token = false
+      @session_token = nil
     end
 
     def login &block
@@ -52,12 +52,12 @@ module Betfair
       url = get_endpoint service_name
       headers = { 'SOAPAction' => action, 'Accept-Encoding' => 'gzip,deflate', 'Content-type' => 'text/xml;charset=UTF-8' }
       req = EventMachine::HttpRequest.new(url).post :body => soap_req, :head => headers
-      req.errback { puts "Failed to make request : #{service_name}-#{action}."  }
+      req.errback { block.call(Response.new(nil,nil,false,"Error connecting to the API"))  }
       req.callback { parse_response(req.response,block) }
     end
 
     def with_session
-      yield if @session_token
+      yield unless @session_token.nil?
       login do |response|
         yield
       end
@@ -65,11 +65,12 @@ module Betfair
 
     def parse_response raw_rsp, block
       parsed_response = Nokogiri::XML raw_rsp
-      api_error = parsed_response.xpath("//header/errorCode").text
 
+      api_error = parsed_response.xpath("//header/errorCode").text
       method_error = parsed_response.xpath("//errorCode").last.text
 
       # TODO - unless its login failed, set the session token to nil and try and login again
+      # NO_SESSION should cover this, only try and login on the next request, don't want to get stuck in a login loop
 
       error_rsp = api_error == "OK" ? method_error : api_error
       unless api_error == "OK" && method_error == "OK"
@@ -77,8 +78,8 @@ module Betfair
         return
       end
 
-      session = parsed_response.xpath("//sessionToken").text
-      @session_token = session
+      @session_token = parsed_response.xpath("//sessionToken").text
+
       block.call Response.new(raw_rsp,parsed_response,true)
     end
 

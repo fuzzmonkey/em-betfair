@@ -34,3 +34,7 @@ Making a call to the API:
 	}
 
 Note, logging in to the API is handled internally by the client.
+
+# Ruby versions
+
+Tested on 1.9.2 but should work on 1.8.7 too.

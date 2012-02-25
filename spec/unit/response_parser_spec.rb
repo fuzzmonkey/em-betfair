@@ -13,7 +13,7 @@ describe Betfair::ResponseParser do
 
   it "should parse login response" do
     login_xml = load_xml_response("login_ok.xml")
-    parsed = @parser.login login_xml#login_xml.xpath("//currency").text
+    parsed = @parser.login login_xml
     parsed.should == {"currency" => "GBP"}
   end
 
