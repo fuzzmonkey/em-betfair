@@ -37,7 +37,7 @@ module Betfair
     #     build_request "exchange", "get_market_prices_compressed", {"market_id" => market_id, "currency_code" => currency_code}
     #   end
     # end
-    # 
+
     # def get_market_traded_volume_compressed market_id, currency_code=nil
     #   with_session do
     #     build_request "exchange", "get_market_traded_volume_compressed", {"market_id" => market_id, "currency_code" => currency_code}

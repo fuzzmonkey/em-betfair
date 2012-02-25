@@ -17,7 +17,7 @@ Create an instance of the client
 	  "exchange_endpoint" => "https://api.betfair.com/exchange/v5/BFExchangeService",
 	  "global_endpoint" => "https://api.betfair.com/global/v3/BFGlobalService"
 	}
-	bf_client = BetFair::Client.new(config)
+	bf_client = Betfair::Client.new(config)
 
 Making a call to the API:
 
