@@ -1,0 +1,12 @@
+%Envelope{ "xmlns:bfex" => 'http://www.betfair.com/publicapi/v5/BFExchangeService/', "xmlns:soapenv" => 'http://schemas.xmlsoap.org/soap/envelope/'} 
+  %soapenv:Header
+  %soapenv:Body
+    %bfex:getMarketPricesCompressed
+      %bfex:request
+        %header
+          - if @data["client_stamp"]
+            %clientStamp= @data["client_stamp"]
+          %sessionToken= @data["session_token"]
+        - if @data["currency_code"]
+          %currencyCode= @data["currency_code"]
+        %marketId= @data["market_id"]

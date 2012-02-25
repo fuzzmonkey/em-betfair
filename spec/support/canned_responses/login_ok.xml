@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:n2="http://www.betfair.com/publicapi/types/global/v3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap:Body>
+    <n:loginResponse xmlns:n="http://www.betfair.com/publicapi/v3/BFGlobalService/">
+      <n:Result xsi:type="n2:LoginResp">
+        <header xsi:type="n2:APIResponseHeader">
+          <errorCode xsi:type="n2:APIErrorEnum">OK</errorCode>
+          <minorErrorCode xsi:nil="1"/>
+          <sessionToken xsi:type="xsd:string">nVhCnN1fCaNMTAHMYUs8Wv8NsU+zSC3GUpcQjoldT1c=</sessionToken>
+          <timestamp xsi:type="xsd:dateTime">2012-02-25T12:37:36.897Z</timestamp>
+        </header>
+        <currency xsi:type="xsd:string">GBP</currency>
+        <errorCode xsi:type="n2:LoginErrorEnum">OK</errorCode>
+        <minorErrorCode xsi:nil="1"/>
+        <validUntil xsi:type="xsd:dateTime">2012-02-05T00:00:00.000Z</validUntil>
+      </n:Result>
+    </n:loginResponse>
+  </soap:Body>
+</soap:Envelope>

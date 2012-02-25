@@ -1,0 +1,23 @@
+%soapenv:Envelope{ "xmlns:soapenv"=> "http://schemas.xmlsoap.org/soap/envelope/", "xmlns:bfex"=>"http://www.betfair.com/publicapi/v5/BFExchangeService/", "xmlns:v5" => 'http://www.betfair.com/publicapi/types/exchange/v5/' }
+  %soapenv:Header
+  %soapenv:Body
+    %bfex:getAllMarkets
+      %bfex:request
+        %header
+          - if @data["client_stamp"]
+            %clientStamp= @data["client_stamp"]
+          %sessionToken= @data["session_token"]
+        - if @data["locale"]
+          %locale= @data["locale"]
+        - if @data["event_type_ids"]
+          %eventTypeIds
+            - @data["event_type_ids"].each do |event_id|
+              %int=event_id
+        - if @data["countries"]
+          %countries
+            - @data["countries"].each do |cc|
+              %Country= cc
+        - if @data["from_date"]
+          %fromDate= @data["from_date"]
+        - if @data["to_date"]
+          %toDate= @data["to_date"]
