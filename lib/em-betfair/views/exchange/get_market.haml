@@ -1,0 +1,12 @@
+%soapenv:Envelope{"xmlns:soapenv" => "http://schemas.xmlsoap.org/soap/envelope/", "xmlns:bfex" => "http://www.betfair.com/publicapi/v5/BFExchangeService/" }
+  %soapenv:Header
+  %soapenv:Body
+    %bfex:getMarket
+      %bfex:request
+        %header
+          - if @data["client_stamp"]
+            %clientStamp= @data["client_stamp"]
+          %sessionToken= @data["session_token"]
+        - if @data["locale"]
+          %locale= @data["locale"]
+        %marketId= @data["market_id"]

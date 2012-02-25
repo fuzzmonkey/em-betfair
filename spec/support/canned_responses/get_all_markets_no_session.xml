@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:n2="http://www.betfair.com/publicapi/types/exchange/v5/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap:Body>
+    <n:getAllMarketsResponse xmlns:n="http://www.betfair.com/publicapi/v5/BFExchangeService/">
+      <n:Result xsi:type="n2:GetAllMarketsResp">
+        <header xsi:type="n2:APIResponseHeader">
+          <errorCode xsi:type="n2:APIErrorEnum">NO_SESSION</errorCode>
+          <minorErrorCode xsi:nil="1"/>
+          <sessionToken xsi:nil="1"/>
+          <timestamp xsi:type="xsd:dateTime">2012-02-25T13:48:41.169Z</timestamp>
+        </header>
+        <errorCode xsi:type="n2:GetAllMarketsErrorEnum">API_ERROR</errorCode>
+        <marketData xsi:nil="1"/>
+        <minorErrorCode xsi:nil="1"/>
+      </n:Result>
+    </n:getAllMarketsResponse>
+  </soap:Body>
+</soap:Envelope>

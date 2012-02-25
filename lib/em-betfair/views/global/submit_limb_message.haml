@@ -1,0 +1,14 @@
+%soapenv:Envelope{ "xmlns:soapenv"=> "http://schemas.xmlsoap.org/soap/envelope/", "xmlns:bfg"=> "http://www.betfair.com/publicapi/v3/BFGlobalService/", "xmlns:v3" => "http://www.betfair.com/publicapi/types/global/v3/" }
+  %soapenv:Header
+  %soapenv:Body
+    %bfg:submitLIMBMessage>
+      %bfg:request
+        %header
+          - if @data["client_stamp"]
+            %clientStamp= @data["client_stamp"]
+          %sessionToken= @data["session_token"]
+        %password= @data["password"]
+        %submitPasswordChangeMessage
+          %messageId= @data["message_id"]
+          %newPassword= @data["new_password"]
+          %newPasswordRepeat= @data["new_password"]

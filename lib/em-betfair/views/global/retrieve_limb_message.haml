@@ -1,0 +1,9 @@
+%soapenv:Envelope{ "xmlns:soapenv"=> "http://schemas.xmlsoap.org/soap/envelope/", "xmlns:bfg"=> "http://www.betfair.com/publicapi/v3/BFGlobalService/" }
+  %soapenv:Header
+  %soapenv:Body
+    %bfg:retrieveLIMBMessage
+      %bfg:request
+        %header
+          - if @data["client_stamp"]
+            %clientStamp= @data["client_stamp"]
+          %sessionToken= @data["session_token"]
