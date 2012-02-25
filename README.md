@@ -6,6 +6,8 @@ em-betfair is a work in progress evented client for the Betfair API. The followi
 - getAllMarkets
 - getMarket
 
+- 
+
 # Usage
 
 Create an instance of the client
