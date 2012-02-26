@@ -47,12 +47,15 @@ module Betfair
     def get_market xml
       market_hash = {}
       market_hash["id"] = xml.xpath("//market/marketId").text
+      market_hash["status"] = xml.xpath("//market/marketStatus").text
       market_hash["parent_id"] = xml.xpath("//market/parentEventId").text
       market_hash["country_code"] = xml.xpath("//market/countryISO3").text
       market_hash["event_type"] = xml.xpath("//market/eventTypeId").text
       market_hash["base_rate"] = xml.xpath("//market/marketBaseRate").text
       market_hash["market_name"] = xml.xpath("//market/name").text
       market_hash["num_winners"] = xml.xpath("//market/numberOfWinners").text
+      market_hash["market_time"] = xml.xpath("//market/marketTime").text
+
       market_hash["runners"] = []
 
       xml.xpath("//runners").children.each do |xml_runner|

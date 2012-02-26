@@ -28,6 +28,7 @@ Making a call to the API:
 
 	    rsp.raw_response # access the raw response body
 	    rsp.parsed_response # access the Nokogiri XML object of the raw response
+	    rsp.hash_response # access a hash of the response data
 
 	    rsp.successfull # boolean for success
 	    rsp.error # API error messge if not successfull

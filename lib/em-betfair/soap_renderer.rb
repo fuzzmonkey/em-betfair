@@ -1,4 +1,5 @@
 require 'haml'
+require 'pathname'
 
 module Betfair
 
