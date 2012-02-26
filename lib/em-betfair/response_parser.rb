@@ -9,6 +9,8 @@ module Betfair
     # tz = TZInfo::Timezone.get(new_time_zone)
     # race_time = tz.utc_to_local(race_time)
 
+    # TODO - return values as proper types rather than strings
+
     def login xml
       {"currency" => xml.xpath("//currency").text}
     end
@@ -63,8 +65,41 @@ module Betfair
     end
 
     def get_market_prices_compressed xml
+      prices_hash = {}
       prices = xml.xpath("//marketPrices").text
-      
+      # Betfair uses colons as a seperator and escaped colons as a different seperator, grr.
+      # [1..-1] removes the first empty string
+      prices_data = prices.gsub('\:', 'ECSCOLON')[1..-1].split(":")
+
+      header_data = prices_data.slice!(0).gsub("ECSCOLON",":").split("~")
+
+      # TODO - parse removed runners properly
+      ["market_id","currency","status","in_play_delay","num_winners","market_info","discount_allowed","market_base_rate","refresh_time","removed_runners","bsp_market"].each_with_index do |field,index|
+        prices_hash[field] = header_data.at(index)
+      end
+
+      prices_data.each do |runner|
+        runner_hash = {}
+        runner_info, lay_prices, back_prices = runner.split("|")
+        runner_data = runner_info.split("~")
+
+        ["selection_id","order_index","total_matched","last_price_matched","handicap","reduction_factor","vacant","asian_line_id","far_sp_price","near_sp_price","actual_sp_price"].each_with_index do |field,index|
+          runner_hash[field] = runner_data.at(index)
+        end
+
+        runner_hash["lay_prices"] = []
+        lay_prices.split("~").each_slice(4) do |prices|
+          runner_hash["lay_prices"].push({"odds" => prices[0], "amount" => prices[1], "type" => prices[2], "depth" => prices[3]})
+        end
+
+        runner_hash["back_prices"] = []
+        back_prices.split("~").each_slice(4) do |prices|
+          runner_hash["back_prices"].push({"odds" => prices[0], "amount" => prices[1], "type" => prices[2], "depth" => prices[3]})
+        end
+
+        prices_hash[runner_hash["selection_id"]] = runner_hash
+      end
+      prices_hash
     end
 
     def get_market_traded_volume_compressed xml
@@ -72,11 +107,11 @@ module Betfair
       traded = xml.xpath("//tradedVolume").text
       market_id = xml.xpath("//marketId").text
       currency = xml.xpath("//currencyCode").text
-      traded_volumes_hash = {}
       # Betfair uses colons as a seperator and escaped colons as a different seperator, grr.
       # [1..-1] removes the first empty string
       traded_data = traded.gsub(/\\:/, "ECSCOLON")[1..-1].split(":")
       traded_data.each do |runner|
+        # TODO - replace ECSCOLON with : 
         runner_hash = {"traded_amounts" => []}
         runner_data = runner.split("|")
         header_data = runner_data.slice!(0).split("~")
