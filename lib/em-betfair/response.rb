@@ -18,8 +18,7 @@ module Betfair
 
     # lazy loaded
     def hash_response
-      #p @parsed_response.root
-      #
+      
     end
 
   end
