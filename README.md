@@ -35,7 +35,7 @@ Making a call to the API:
 	    rsp.hash_response # access a hash of the response data
 
 	    rsp.successfull # boolean for success
-	    rsp.error # API error messge if not successfull
+	    rsp.error # API error message if not successfull
 
 	  end
 	}
