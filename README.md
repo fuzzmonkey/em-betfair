@@ -10,6 +10,10 @@ em-betfair is a work in progress evented client for the Betfair API. The followi
 
 # Usage
 
+	gem install em-betfair
+
+	gem "em-betfair", "~> 0.1"
+
 Create an instance of the client
 
 	config = {
