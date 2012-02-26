@@ -23,7 +23,7 @@ describe Betfair::Client do
         EM::run {
           @bf_client.get_all_markets do |rsp|
             rsp.successfull.should eq false
-            # rsp.hash_response.should eq true
+            rsp.hash_response.should be_nil
             rsp.error.should eq "INTERNAL_ERROR"
             EM::stop
           end
@@ -54,7 +54,7 @@ describe Betfair::Client do
       EM::run {
         @bf_client.login do |rsp|
           rsp.successfull.should eq true
-          # rsp.hash_response.should eq true
+          rsp.hash_response.should be_an_instance_of Hash
           rsp.error.should eq ""
           EM::stop
         end
@@ -83,7 +83,7 @@ describe Betfair::Client do
         @bf_client.get_all_markets do |rsp|
           rsp.successfull.should eq true
           rsp.error.should eq ""
-          # rsp.hash_response.should eq true
+          rsp.hash_response.should be_an_instance_of Hash
           rsp.parsed_response.xpath("//marketData").text.should_not eq ""
           EM::stop
         end
@@ -101,7 +101,7 @@ describe Betfair::Client do
         @bf_client.get_market "104968439" do |rsp|
           rsp.successfull.should eq true
           rsp.error.should eq ""
-          # rsp.hash_response.should eq true
+          rsp.hash_response.should be_an_instance_of Hash
           rsp.parsed_response.xpath("//runners").children.should_not be_empty
           EM::stop
         end
@@ -119,7 +119,7 @@ describe Betfair::Client do
         @bf_client.get_market_prices_compressed "104968512" do |rsp|
           rsp.successfull.should eq true
           rsp.error.should eq ""
-          # rsp.hash_response.should eq true
+          rsp.hash_response.should be_an_instance_of Hash
           rsp.parsed_response.xpath("//marketPrices").first.should_not be_nil
           EM::stop
         end
@@ -137,7 +137,7 @@ describe Betfair::Client do
         @bf_client.get_market_prices_compressed "104968512" do |rsp|
           rsp.successfull.should eq true
           rsp.error.should eq ""
-          # rsp.hash_response.should eq true
+          rsp.hash_response.should be_an_instance_of Hash
           rsp.parsed_response.xpath("//tradedVolume").first.should_not be_nil
           EM::stop
         end
