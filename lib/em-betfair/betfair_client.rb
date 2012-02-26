@@ -1,3 +1,5 @@
+# Betfair::Client
+
 require 'uri'
 require 'em-http'
 require 'nokogiri'
@@ -25,39 +27,43 @@ module Betfair
 
     # Returns all the available markets on Betfair.
     #
-    # countries -       array of ISO 3166-1 country codes
-    # event_type_ids -  array of Betfair event ids
-    # to_date -         DateTime
-    # from_date -       DateTime
+    # @param [Array] countries array of ISO 3166-1 country codes
+    # @param [Array] event_type_ids array of Betfair event ids
+    # @param [DateTime] to_date start time range of events to retrieve
+    # @param [DateTime] from_date end time range of events to retrieve
+    # @return [Betfair::Response]
     def get_all_markets countries=nil, event_type_ids=nil, to_date=nil, from_date=nil, &block
       with_session do
         build_request "exchange", "get_all_markets", {"countries" => countries, "event_type_ids" => event_type_ids, "to_date" => to_date, "from_date" => from_date}, block
       end
     end
 
-    # Returns the details of a specifc market
+    # Returns the details for a specifc market.
     # 
-    # market_id -       Betfair market ID
+    # @param [String] market_id Betfair market ID
+    # @return [Betfair::Response]
     def get_market market_id, &block
       with_session do
         build_request "exchange", "get_market", {"market_id" => market_id }, block
       end
     end
 
-    # Returns the compressed market prices
+    # Returns the compressed market prices for a specifc market.
     # 
-    # market_id -       Betfair market ID
-    # currency_code -   three letter ISO 4217 country code
+    # @param [String] market_id Betfair market ID
+    # @param [String] currency_code three letter ISO 4217 country code
+    # @return [Betfair::Response]
     def get_market_prices_compressed market_id, currency_code=nil, &block
       with_session do
         build_request "exchange", "get_market_prices_compressed", {"market_id" => market_id, "currency_code" => currency_code}, block
       end
     end
 
-    # Returns the compressed traded volumes
+    # Returns the compressed traded volumes for a specifc market.
     # 
-    # market_id -       Betfair market ID
-    # currency_code -   three letter ISO 4217 country code
+    # @param [String] market_id Betfair market ID
+    # @param [String] currency_code three letter ISO 4217 country code
+    # @return [Betfair::Response]
     def get_market_traded_volume_compressed market_id, currency_code=nil, &block
       with_session do
         build_request "exchange", "get_market_traded_volume_compressed", {"market_id" => market_id, "currency_code" => currency_code}, block
@@ -84,8 +90,8 @@ module Betfair
 
     # Parses the API response, building a response object
     # 
-    # raw_rsp -         response body from EM:Http request
-    # block -           callback for this request
+    # @param [String] raw_rsp  response body from EM:Http request
+    # block [block] block callback for this request
     def parse_response raw_rsp, block
       parsed_response = Nokogiri::XML raw_rsp
 

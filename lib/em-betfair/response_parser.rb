@@ -1,3 +1,5 @@
+# Utility class for chopping up Betfair API responses and turning them into hashes
+
 module Betfair
 
   # TODO - version this to handle changes in the API
@@ -15,6 +17,8 @@ module Betfair
       {"currency" => xml.xpath("//currency").text}
     end
 
+    # @param xml Nokogiri XML object
+    # @return hash of get_all_markets response
     def get_all_markets xml
       market_data = xml.xpath("//marketData").text
       all_markets_hash = {"market_data" => {}}
@@ -44,6 +48,8 @@ module Betfair
       all_markets_hash
     end
 
+    # @param xml Nokogiri XML object
+    # @return hash of get_market response
     def get_market xml
       market_hash = {}
       market_hash["id"] = xml.xpath("//market/marketId").text
@@ -67,6 +73,8 @@ module Betfair
       market_hash
     end
 
+    # @param xml Nokogiri XML object
+    # @return hash of get_market_prices_compressed response
     def get_market_prices_compressed xml
       prices_hash = {}
       prices = xml.xpath("//marketPrices").text
@@ -105,6 +113,8 @@ module Betfair
       prices_hash
     end
 
+    # @param xml Nokogiri XML object
+    # @return hash of get_market_traded_volume_compressed response
     def get_market_traded_volume_compressed xml
       traded_volumne_hash = {}
       traded = xml.xpath("//tradedVolume").text
