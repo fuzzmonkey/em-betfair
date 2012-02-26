@@ -3,8 +3,10 @@
 em-betfair is a work in progress evented client for the Betfair API. The following API calls have been implemented :
 
 - login
-- getAllMarkets
 - getMarket
+- getAllMarkets
+- getMarketPricesCompressed
+- getMarketTradedVolumeCompressed
 
 # Usage
 

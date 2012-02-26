@@ -15,6 +15,22 @@ describe Betfair::Client do
     @bf_client = Betfair::Client.new(config)
   end
 
+  describe "SOAP faults" do
+
+    it "should handle SOAP faults" do
+        stub_request(:post, "http://global.betfair.com").to_return(:body => load_response("login_ok.xml"), :status => 200)
+        stub_request(:post, "http://exchange.betfair.com").to_return(:body => load_response("soap_fault.xml"), :status => 500)
+        EM::run {
+          @bf_client.get_all_markets do |rsp|
+            rsp.successfull.should eq false
+            # rsp.hash_response.should eq true
+            rsp.error.should eq "INTERNAL_ERROR"
+            EM::stop
+          end
+        }
+      end
+  end
+
   describe "with no session token" do
 
     it "shouldn't be successfull" do
@@ -94,15 +110,39 @@ describe Betfair::Client do
 
   end
 
-  describe "get_all_markets" do
-
-  end
-
   describe "get_market_prices_compressed" do
+
+    it "should handle an OK response" do
+      stub_request(:post, "http://global.betfair.com").to_return(:body => load_response("login_ok.xml"), :status => 200)
+      stub_request(:post, "http://exchange.betfair.com").to_return(:body => load_response("get_market_prices_compressed.xml"), :status => 200)
+      EM::run {
+        @bf_client.get_market_prices_compressed "104968512" do |rsp|
+          rsp.successfull.should eq true
+          rsp.error.should eq ""
+          # rsp.hash_response.should eq true
+          rsp.parsed_response.xpath("//marketPrices").first.should_not be_nil
+          EM::stop
+        end
+      }
+    end
 
   end
 
   describe "get_market_traded_volume_compressed" do
+
+    it "should handle an OK response" do
+      stub_request(:post, "http://global.betfair.com").to_return(:body => load_response("login_ok.xml"), :status => 200)
+      stub_request(:post, "http://exchange.betfair.com").to_return(:body => load_response("get_market_traded_volume_compressed.xml"), :status => 200)
+      EM::run {
+        @bf_client.get_market_prices_compressed "104968512" do |rsp|
+          rsp.successfull.should eq true
+          rsp.error.should eq ""
+          # rsp.hash_response.should eq true
+          rsp.parsed_response.xpath("//tradedVolume").first.should_not be_nil
+          EM::stop
+        end
+      }
+    end
 
   end
 

@@ -1,6 +1,8 @@
 module Betfair
 
   # TODO - version this to handle changes in the API
+  # TODO - this might be nicer as a structs style setup. e.g
+  # markets_rsp = GetAllMarkets.new(parsed_response)
   module ResponseParser
 
     # TODO - handle timezones, return local & utc time
@@ -54,10 +56,40 @@ module Betfair
       xml.xpath("//runners").children.each do |xml_runner|
         name = xml_runner.xpath("name").text
         selection_id = xml_runner.xpath("selectionId").text
-        market_hash["runners"].push({:selection_id => selection_id, :name => name})
+        market_hash["runners"].push({"selection_id" => selection_id, "name" => name})
       end
 
       market_hash
+    end
+
+    def get_market_prices_compressed xml
+      prices = xml.xpath("//marketPrices").text
+      
+    end
+
+    def get_market_traded_volume_compressed xml
+      traded_volumne_hash = {}
+      traded = xml.xpath("//tradedVolume").text
+      market_id = xml.xpath("//marketId").text
+      currency = xml.xpath("//currencyCode").text
+      traded_volumes_hash = {}
+      # Betfair uses colons as a seperator and escaped colons as a different seperator, grr.
+      # [1..-1] removes the first empty string
+      traded_data = traded.gsub(/\\:/, "ECSCOLON")[1..-1].split(":")
+      traded_data.each do |runner|
+        runner_hash = {"traded_amounts" => []}
+        runner_data = runner.split("|")
+        header_data = runner_data.slice!(0).split("~")
+        ["selection_id", "asian_line_id", "bsp", "total_bsp_back_matched", "total_bsp_liability_matched"].each_with_index do |field,index|
+          runner_hash[field] = header_data.at(index)
+        end
+        runner_data.each do |traded_amount|
+          odds, total_matched = traded_amount.split("~")
+          runner_hash["traded_amounts"].push({"odds" => odds, "total_matched" => total_matched})
+        end
+        traded_volumne_hash[runner_hash["selection_id"]] = runner_hash
+      end
+      traded_volumne_hash
     end
 
   end

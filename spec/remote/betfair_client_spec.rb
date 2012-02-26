@@ -39,5 +39,31 @@ describe Betfair::Client do
     end
 
   end
+  
+  describe "get_market_prices_compressed" do
+
+    it "should work against a remote API" do
+      # EM::run {
+      #   @bf_client.get_market_prices_compressed "104968512" do |response|
+      #     puts response.raw_response
+      #     EM::stop
+      #   end
+      # }
+    end
+
+  end
+  
+  describe "get_market_traded_volume_compressed" do
+
+    it "should work against a remote API" do
+      # EM::run {
+      #   @bf_client.get_market_traded_volume_compressed "104968512" do |response|
+      #     puts response.raw_response
+      #     EM::stop
+      #   end
+      # }
+    end
+
+  end
 
 end

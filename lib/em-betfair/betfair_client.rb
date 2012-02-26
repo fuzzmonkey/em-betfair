@@ -48,9 +48,9 @@ module Betfair
     # 
     # market_id -       Betfair market ID
     # currency_code -   three letter ISO 4217 country code
-    def get_market_prices_compressed market_id, currency_code=nil
+    def get_market_prices_compressed market_id, currency_code=nil, &block
       with_session do
-        build_request "exchange", "get_market_prices_compressed", {"market_id" => market_id, "currency_code" => currency_code}
+        build_request "exchange", "get_market_prices_compressed", {"market_id" => market_id, "currency_code" => currency_code}, block
       end
     end
 
@@ -58,9 +58,9 @@ module Betfair
     # 
     # market_id -       Betfair market ID
     # currency_code -   three letter ISO 4217 country code
-    def get_market_traded_volume_compressed market_id, currency_code=nil
+    def get_market_traded_volume_compressed market_id, currency_code=nil, &block
       with_session do
-        build_request "exchange", "get_market_traded_volume_compressed", {"market_id" => market_id, "currency_code" => currency_code}
+        build_request "exchange", "get_market_traded_volume_compressed", {"market_id" => market_id, "currency_code" => currency_code}, block
       end
     end
 
@@ -88,6 +88,12 @@ module Betfair
     # block -           callback for this request
     def parse_response raw_rsp, block
       parsed_response = Nokogiri::XML raw_rsp
+
+      soap_fault = parsed_response.xpath("//faultstring").first
+      if soap_fault
+        block.call(Response.new(raw_rsp,parsed_response,false,soap_fault.text))
+        return
+      end
 
       api_error = parsed_response.xpath("//header/errorCode").text
       method_error = parsed_response.xpath("//errorCode").last.text
