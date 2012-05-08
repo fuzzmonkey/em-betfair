@@ -8,6 +8,8 @@ require 'nokogiri'
 module Betfair
 
   BETFAIR_TIME_ZONES = {"RSA"=>"Africa/Johannesburg", "AST"=>"US/Arizona", "MST"=>"US/Mountain", "JPT"=>"Japan", "HK"=>"Hongkong", "GMT"=>"GMT", "PKT"=>"Etc/GMT-5", "UAE"=>"Asia/Dubai", "CST"=>"US/Central", "AKST"=>"US/Alaska", "BRT"=>"Brazil/East", "INT"=>"Asia/Calcutta", "SMT"=>"America/Santiago", "MSK"=>"Europe/Moscow", "AWST"=>"Australia/Perth", "PST"=>"US/Pacific", "EST"=>"US/Eastern", "KMT"=>"Jamaica", "CET"=>"CET", "ANST"=>"Australia/Darwin", "ACST"=>"Australia/Adelaide", "NZT"=>"NZ", "UKT"=>"Europe/London", "AMT"=>"Brazil/West", "THAI"=>"Asia/Bangkok", "SJMT"=>"America/Costa_Rica", "HST"=>"US/Hawaii", "EET"=>"EET", "AEST"=>"Australia/Sydney", "IEST"=>"America/Indiana/Indianapolis", "AQST"=>"Australia/Queensland"}
+  REQUEST_RATE_LIMITS = {"login" => 24, "get_market" => 5, "get_market_info" => 5, "get_market_prices_compressed" => 60, "get_market_traded_volume_compressed" => 60 }
+  FREE_PRODUCT_ID = 82
 
   class Client
 
@@ -18,13 +20,9 @@ module Betfair
     def initialize config
       @config = config
       @session_token = nil
+      @num_requests = {}
+      EventMachine::PeriodicTimer.new(60) { reset_requests } if EM.reactor_running?
     end
-
-    # Rate limits
-    # get_market 5
-    # get_market_info
-    # get_market_prices_compressed 60
-    # get_market_traded_volume_compressed 60
 
     # Creates a session on the Betfair API, used by Betfair::Client internally to maintain session.
     def login &block
@@ -94,24 +92,31 @@ module Betfair
     # action -          the API method to call on the API
     # data -            hash of parameters to populate the SOAP request
     # block -           the ballback for this request
-    def build_request service_name, action, data={}, block
+    def build_request service_name, request_action, data={}, block
+      puts "building request #{service_name} #{request_action}"
+      if defer_request? request_action
+        EventMachine::Timer.new(30) { build_request(service_name, request_action, data, block) }
+        return
+      end
+      increment_num_requests request_action unless @session_token && request_action == "login"
       request_data = { :data => data.merge!({"session_token" => @session_token}) }
-      soap_req = Betfair::SOAPRenderer.new( service_name, action ).render( request_data )
+      soap_req = Betfair::SOAPRenderer.new( service_name, request_action ).render( request_data )
       url = get_endpoint service_name
-      headers = { 'SOAPAction' => action, 'Accept-Encoding' => 'gzip,deflate', 'Content-type' => 'text/xml;charset=UTF-8' }
+      headers = { 'SOAPAction' => request_action, 'Accept-Encoding' => 'gzip,deflate', 'Content-type' => 'text/xml;charset=UTF-8' }
       req = EventMachine::HttpRequest.new(url).post :body => soap_req, :head => headers
       req.errback { block.call(Response.new(nil,nil,false,"Error connecting to the API"))  }
-      req.callback { parse_response(req.response,block) }
+      req.callback { parse_response(request_action,req.response,block) }
     end
 
     # Parses the API response, building a response object
     # 
     # @param [String] raw_rsp  response body from EM:Http request
     # block [block] block callback for this request
-    def parse_response raw_rsp, block
+    def parse_response request_action, raw_rsp, block
       parsed_response = Nokogiri::XML raw_rsp
 
       soap_fault = parsed_response.xpath("//faultstring").first
+      puts soap_fault
       if soap_fault
         block.call(Response.new(raw_rsp,parsed_response,false,soap_fault.text))
         return
@@ -119,6 +124,9 @@ module Betfair
 
       api_error = parsed_response.xpath("//header/errorCode").text
       method_error = parsed_response.xpath("//errorCode").last.text
+      
+      puts api_error
+      puts method_error
 
       error_rsp = api_error == "OK" ? method_error : api_error
       unless api_error == "OK" && method_error == "OK"
@@ -126,7 +134,6 @@ module Betfair
         block.call(Response.new(raw_rsp,parsed_response,false,error_rsp))
         return
       end
-
       @session_token = parsed_response.xpath("//sessionToken").text
 
       block.call Response.new(raw_rsp,parsed_response,true)
@@ -141,6 +148,27 @@ module Betfair
 
     def get_endpoint service_name
       return @config["#{service_name}_endpoint"]
+    end
+
+    def increment_num_requests request_action
+      @num_requests[request_action] ||= 0
+      @num_requests[request_action] +=1
+      # puts "#{request_action} set to #{@num_requests[request_action]}"
+    end
+
+    def reset_requests
+      @num_requests = {}
+    end
+
+    # Checks the number of requests this minute against the free API rate limits
+    # @param [String] request_action soap request to check limits for
+    # @return [boolean] whether the request should be deferred
+    def defer_request? request_action
+      return false unless REQUEST_RATE_LIMITS[request_action] && @config["product_id"] != FREE_PRODUCT_ID
+      # puts "defer_request? #{request_action} : #{@num_requests[request_action].to_i >= REQUEST_RATE_LIMITS[request_action]}"
+      # puts "Rate limit : #{REQUEST_RATE_LIMITS[request_action]}"
+      # puts "Requests this minute : #{@num_requests[request_action]}"
+      return @num_requests[request_action].to_i >= REQUEST_RATE_LIMITS[request_action]
     end
 
   end

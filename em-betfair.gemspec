@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "em-betfair"
-  s.version     = "0.2"
+  s.version     = "0.3"
   s.authors     = ["George Sheppard"]
   s.email       = ["george@fuzzmonkey.co.uk"]
   s.homepage    = "https://github.com/fuzzmonkey/em-betfair"
