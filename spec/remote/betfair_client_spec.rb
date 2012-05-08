@@ -39,6 +39,19 @@ describe Betfair::Client do
     end
 
   end
+
+  describe "get_silks_v2" do
+
+    it "should work against a remote API" do
+      # EM::run {
+      #   @bf_client.get_silks_v2 [105668397] do |response|
+      #     puts response.raw_response
+      #     EM::stop
+      #   end
+      # }
+    end
+
+  end
   
   describe "get_market_prices_compressed" do
 

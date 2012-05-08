@@ -6,7 +6,8 @@ config = {
   "password" => "some_password", 
   "product_id" => 22, 
   "exchange_endpoint" => "http://exchange.betfair.com", #"https://api.betfair.com/exchange/v5/BFExchangeService",
-  "global_endpoint" => "http://global.betfair.com" #"https://api.betfair.com/global/v3/BFGlobalService"
+  "global_endpoint" => "http://global.betfair.com", #"https://api.betfair.com/global/v3/BFGlobalService"
+  "silks_base_url" => "http://content-cache.betfair.com/feeds_images/Horses/SilkColours/"
 }
 
 describe Betfair::Client do
@@ -103,6 +104,24 @@ describe Betfair::Client do
           rsp.error.should eq ""
           rsp.hash_response.should be_an_instance_of Hash
           rsp.parsed_response.xpath("//runners").children.should_not be_empty
+          EM::stop
+        end
+      }
+    end
+
+  end
+
+  describe "get_silks_v2" do
+
+    it "should handle an OK response" do
+      stub_request(:post, "http://global.betfair.com").to_return(:body => load_response("login_ok.xml"), :status => 200)
+      stub_request(:post, "http://exchange.betfair.com").to_return(:body => load_response("get_silks_v2.xml"), :status => 200)
+      EM::run {
+        @bf_client.get_silks_v2 ["104968439"] do |rsp|
+          rsp.successfull.should eq true
+          rsp.error.should eq ""
+          rsp.hash_response.should be_an_instance_of Hash
+          rsp.parsed_response.xpath("//marketDisplayDetails").children.should_not be_empty
           EM::stop
         end
       }

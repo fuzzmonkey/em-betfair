@@ -30,7 +30,7 @@ EM::run {
   config = {
     "username" => "<YOUR BETFAIR USERNAME>",
     "password" => "<YOUR BETFAIR PASSWORD>", 
-    "product_id" => "<YOUR BETFAIR PRODUCTID>", 
+    "product_id" => "<YOUR BETFAIR PRODUCTID>",
     "exchange_endpoint" => "https://api.betfair.com/exchange/v5/BFExchangeService",
     "global_endpoint" => "https://api.betfair.com/global/v3/BFGlobalService"
   }

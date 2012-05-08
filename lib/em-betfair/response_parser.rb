@@ -73,6 +73,58 @@ module Betfair
       market_hash
     end
 
+    def get_silks_v2 xml
+      markets = {}
+      n2 = "http://www.betfair.com/publicapi/types/exchange/v5/"
+      xml.xpath("//marketDisplayDetails/n2:MarketDisplayDetail", "n2" => n2).each do |market_xml|
+        market_id = market_xml.xpath("marketId").text
+        markets[market_id] = {"runners" => {} }
+        market_xml.xpath("racingSilks/n2:RacingSilk","n2" => n2).each do |xml_racing_silk|
+          selection_id = xml_racing_silk.xpath("selectionId").text
+          runner_hash = {}
+          markets[market_id]["runners"][selection_id] = runner_hash
+
+          runner_hash["silks_url"] = xml_racing_silk.xpath("silksURL").text
+          runner_hash["silks_text"] = xml_racing_silk.xpath("silksText").text
+
+          runner_hash["trainer_name"] = xml_racing_silk.xpath("trainerName").text
+          runner_hash["age_weight"] = xml_racing_silk.xpath("ageWeight").text
+          runner_hash["form"] = xml_racing_silk.xpath("form").text
+          runner_hash["days_since"] = xml_racing_silk.xpath("daysSince").text
+          runner_hash["jockey_claim"] = xml_racing_silk.xpath("jockeyClaim").text
+          runner_hash["wearing"] = xml_racing_silk.xpath("wearing").text
+          runner_hash["saddle_cloth"] = xml_racing_silk.xpath("saddleCloth").text
+          runner_hash["stall_draw"] = xml_racing_silk.xpath("stallDraw").text
+          runner_hash["owner_name"] = xml_racing_silk.xpath("ownerName").text
+          runner_hash["jockey_name"] = xml_racing_silk.xpath("jockeyName").text
+          runner_hash["colour"] = xml_racing_silk.xpath("colour").text
+          runner_hash["sex"] = xml_racing_silk.xpath("sex").text
+          runner_hash["bred"] = xml_racing_silk.xpath("bred").text
+          forecast_numerator = xml_racing_silk.xpath("forecastPriceNumerator").text
+          forecast_denominator = xml_racing_silk.xpath("forecastPriceDenominator").text
+          runner_hash["forecast_price"] = "#{forecast_numerator}/#{forecast_denominator}"
+          runner_hash["official_rating"] = xml_racing_silk.xpath("officialRating").text
+          
+          runner_hash["sire"] = {}
+          runner_hash["sire"]["name"] = xml_racing_silk.xpath("sire/name").text
+          runner_hash["sire"]["bred"] = xml_racing_silk.xpath("sire/bred").text
+          runner_hash["sire"]["year_born"] = xml_racing_silk.xpath("sire/yearBorn").text
+
+          runner_hash["dam"] = {}
+          runner_hash["dam"]["name"] = xml_racing_silk.xpath("dam/name").text
+          runner_hash["dam"]["bred"] = xml_racing_silk.xpath("dam/bred").text
+          runner_hash["dam"]["year_born"] = xml_racing_silk.xpath("dam/yearBorn").text
+          
+          runner_hash["dam_sire"] = {}
+          runner_hash["dam_sire"]["name"] = xml_racing_silk.xpath("damSire/name").text
+          runner_hash["dam_sire"]["bred"] = xml_racing_silk.xpath("damSire/bred").text
+          runner_hash["dam_sire"]["year_born"] = xml_racing_silk.xpath("damSire/yearBorn").text
+
+        end
+      end
+      markets
+    end
+
     # @param xml Nokogiri XML object
     # @return hash of get_market_prices_compressed response
     def get_market_prices_compressed xml

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:n2="http://www.betfair.com/publicapi/types/exchange/v5/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap:Body>
+    <n:getSilksV2Response xmlns:n="http://www.betfair.com/publicapi/v5/BFExchangeService/">
+      <n:Result xsi:type="n2:GetSilksV2Resp">
+        <header xsi:type="n2:APIResponseHeader">
+          <errorCode xsi:type="n2:APIErrorEnum">OK</errorCode>
+          <minorErrorCode xsi:nil="1"/>
+          <sessionToken xsi:type="xsd:string">UbGrFAIEUBT4iMgyjohRHDuJfA+FzuFxbX/rL8Evgkw=</sessionToken>
+          <timestamp xsi:type="xsd:dateTime">2012-05-08T19:39:55.234Z</timestamp>
+        </header>
+        <errorCode xsi:type="n2:GetSilksErrorEnum">OK</errorCode>
+        <minorErrorCode xsi:nil="1"/>
+        <marketDisplayDetails xsi:type="n2:ArrayOfMarketDisplayDetailV2">
+          <n2:MarketDisplayDetail xsi:type="n2:MarketDisplayDetailV2">
+            <marketId xsi:type="xsd:int">105668397</marketId>
+            <racingSilks xsi:type="n2:ArrayOfRacingSilkV2">
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">5446714</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00074030.jpg</silksURL>
+                <silksText xsi:type="xsd:string">White, dark blue triple diamond, dark blue and white diabolo on sleeves, white cap, dark blue diamond</silksText>
+                <trainerName xsi:type="xsd:string">Richard Whitaker</trainerName>
+                <ageWeight xsi:type="xsd:string">4/9-6</ageWeight>
+                <form xsi:type="xsd:string">1343-</form>
+                <daysSince xsi:type="xsd:int">237</daysSince>
+                <jockeyClaim xsi:type="xsd:int">3</jockeyClaim>
+                <wearing xsi:nil="1"/>
+                <saddleCloth xsi:type="xsd:int">3</saddleCloth>
+                <stallDraw xsi:type="xsd:int">3</stallDraw>
+                <ownerName xsi:type="xsd:string">Mrs Jane Newett</ownerName>
+                <jockeyName xsi:type="xsd:string">Amy Ryan</jockeyName>
+                <colour xsi:type="xsd:string">ch</colour>
+                <sex xsi:type="xsd:string">f</sex>
+                <bred xsi:type="xsd:string">GB</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">13</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">2</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">68</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Namid</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1996</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Petra Nova</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1996</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">First Trump</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1991</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">4691268</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00075682.jpg</silksURL>
+                <silksText xsi:type="xsd:string">Black, pink seams, striped sleeves, pink cap</silksText>
+                <trainerName xsi:type="xsd:string">Ruth Carr</trainerName>
+                <ageWeight xsi:type="xsd:string">4/9-5</ageWeight>
+                <form xsi:type="xsd:string">468900-</form>
+                <daysSince xsi:type="xsd:int">165</daysSince>
+                <jockeyClaim xsi:type="xsd:int">0</jockeyClaim>
+                <wearing xsi:nil="1"/>
+                <saddleCloth xsi:type="xsd:int">4</saddleCloth>
+                <stallDraw xsi:type="xsd:int">9</stallDraw>
+                <ownerName xsi:type="xsd:string">Paul Saxton &amp; The Bottom Liners</ownerName>
+                <jockeyName xsi:type="xsd:string">James Sullivan</jockeyName>
+                <colour xsi:type="xsd:string">b</colour>
+                <sex xsi:type="xsd:string">g</sex>
+                <bred xsi:type="xsd:string">IRE</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">12</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">1</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">67</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Kheleyf</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">2001</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Diplomats Daughter</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">2001</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Unfuwain</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1985</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">2503257</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00077008.jpg</silksURL>
+                <silksText xsi:type="xsd:string">Pink, emerald green triple diamond, diamonds on sleeves, emerald green cap</silksText>
+                <trainerName xsi:type="xsd:string">Daniel Loughnane</trainerName>
+                <ageWeight xsi:type="xsd:string">7/9-7</ageWeight>
+                <form xsi:type="xsd:string">372111</form>
+                <daysSince xsi:type="xsd:int">42</daysSince>
+                <jockeyClaim xsi:type="xsd:int">0</jockeyClaim>
+                <wearing xsi:type="xsd:string">tongue strap</wearing>
+                <saddleCloth xsi:type="xsd:int">1</saddleCloth>
+                <stallDraw xsi:type="xsd:int">5</stallDraw>
+                <ownerName xsi:type="xsd:string">Mrs C. Loughnane</ownerName>
+                <jockeyName xsi:type="xsd:string">Shane Kelly</jockeyName>
+                <colour xsi:type="xsd:string">b</colour>
+                <sex xsi:type="xsd:string">g</sex>
+                <bred xsi:type="xsd:string">IRE</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">7</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">2</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">69</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Captain Rio</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1999</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Queen Sigi</name>
+                  <bred xsi:type="xsd:string">IRE</bred>
+                  <yearBorn xsi:type="xsd:string">1995</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Fairy King</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1982</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">3093005</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00042636.jpg</silksURL>
+                <silksText xsi:type="xsd:string">Yellow, dark green seams, striped sleeves, yellow cap</silksText>
+                <trainerName xsi:type="xsd:string">Paul Green</trainerName>
+                <ageWeight xsi:type="xsd:string">6/9-2</ageWeight>
+                <form xsi:type="xsd:string">444U85</form>
+                <daysSince xsi:type="xsd:int">27</daysSince>
+                <jockeyClaim xsi:type="xsd:int">0</jockeyClaim>
+                <wearing xsi:type="xsd:string">visor</wearing>
+                <saddleCloth xsi:type="xsd:int">5</saddleCloth>
+                <stallDraw xsi:type="xsd:int">2</stallDraw>
+                <ownerName xsi:type="xsd:string">Mr Paul Green (Oaklea)</ownerName>
+                <jockeyName xsi:type="xsd:string">Silvestre De Sousa</jockeyName>
+                <colour xsi:type="xsd:string">b</colour>
+                <sex xsi:type="xsd:string">g</sex>
+                <bred xsi:type="xsd:string">IRE</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">10</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">1</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">64</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Danetime</name>
+                  <bred xsi:type="xsd:string">IRE</bred>
+                  <yearBorn xsi:type="xsd:string">1994</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Katherine Gorge</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1994</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Hansel</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1988</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">4316124</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00004284.jpg</silksURL>
+                <silksText xsi:type="xsd:string">White and dark green diamonds, white sleeves, dark green armlets, white cap</silksText>
+                <trainerName xsi:type="xsd:string">Paul Midgley</trainerName>
+                <ageWeight xsi:type="xsd:string">6/8-11</ageWeight>
+                <form xsi:type="xsd:string">215465</form>
+                <daysSince xsi:type="xsd:int">34</daysSince>
+                <jockeyClaim xsi:type="xsd:int">0</jockeyClaim>
+                <wearing xsi:nil="1"/>
+                <saddleCloth xsi:type="xsd:int">8</saddleCloth>
+                <stallDraw xsi:type="xsd:int">11</stallDraw>
+                <ownerName xsi:type="xsd:string">Mr John Allan Milburn</ownerName>
+                <jockeyName xsi:type="xsd:string">Micky Fenton</jockeyName>
+                <colour xsi:type="xsd:string">b</colour>
+                <sex xsi:type="xsd:string">g</sex>
+                <bred xsi:type="xsd:string">USA</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">9</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">1</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">59</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Grand Slam</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1995</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Ruby's Reception</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">2000</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Rubiano</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1987</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">4237300</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00055527.jpg</silksURL>
+                <silksText xsi:type="xsd:string">White, brown seams, white sleeves and cap</silksText>
+                <trainerName xsi:type="xsd:string">Michael Easterby</trainerName>
+                <ageWeight xsi:type="xsd:string">5/9-0</ageWeight>
+                <form xsi:type="xsd:string">2110-01</form>
+                <daysSince xsi:type="xsd:int">13</daysSince>
+                <jockeyClaim xsi:type="xsd:int">0</jockeyClaim>
+                <wearing xsi:nil="1"/>
+                <saddleCloth xsi:type="xsd:int">7</saddleCloth>
+                <stallDraw xsi:type="xsd:int">6</stallDraw>
+                <ownerName xsi:type="xsd:string">Mr A. Saha</ownerName>
+                <jockeyName xsi:type="xsd:string">Paddy Aspell</jockeyName>
+                <colour xsi:type="xsd:string">b</colour>
+                <sex xsi:type="xsd:string">g</sex>
+                <bred xsi:type="xsd:string">GB</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">6</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">1</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">62</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Danroad</name>
+                  <bred xsi:type="xsd:string">AUS</bred>
+                  <yearBorn xsi:type="xsd:string">1999</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Lawless Bridget</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1995</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Alnasr Alwasheek</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1989</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">4650680</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00050445.jpg</silksURL>
+                <silksText xsi:type="xsd:string">Beige and black (quartered), halved sleeves</silksText>
+                <trainerName xsi:type="xsd:string">Paul Midgley</trainerName>
+                <ageWeight xsi:type="xsd:string">4/8-11</ageWeight>
+                <form xsi:type="xsd:string">0615-84</form>
+                <daysSince xsi:type="xsd:int">27</daysSince>
+                <jockeyClaim xsi:type="xsd:int">0</jockeyClaim>
+                <wearing xsi:type="xsd:string">visor</wearing>
+                <saddleCloth xsi:type="xsd:int">10</saddleCloth>
+                <stallDraw xsi:type="xsd:int">1</stallDraw>
+                <ownerName xsi:type="xsd:string">Mr K. L. Man</ownerName>
+                <jockeyName xsi:type="xsd:string">Michael O'Connell</jockeyName>
+                <colour xsi:type="xsd:string">br</colour>
+                <sex xsi:type="xsd:string">f</sex>
+                <bred xsi:type="xsd:string">GB</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">20</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">1</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">59</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Pastoral Pursuits</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">2001</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Eljariha</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1997</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Unfuwain</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1985</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">2091820</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00006693.jpg</silksURL>
+                <silksText xsi:type="xsd:string">Light blue, dark green hoops, light blue sleeves</silksText>
+                <trainerName xsi:type="xsd:string">Chris Grant</trainerName>
+                <ageWeight xsi:type="xsd:string">9/9-1</ageWeight>
+                <form xsi:type="xsd:string">11393-0</form>
+                <daysSince xsi:type="xsd:int">27</daysSince>
+                <jockeyClaim xsi:type="xsd:int">0</jockeyClaim>
+                <wearing xsi:type="xsd:string">blinkers</wearing>
+                <saddleCloth xsi:type="xsd:int">6</saddleCloth>
+                <stallDraw xsi:type="xsd:int">10</stallDraw>
+                <ownerName xsi:type="xsd:string">Mr Nigel E. M. Jones</ownerName>
+                <jockeyName xsi:type="xsd:string">Tony Hamilton</jockeyName>
+                <colour xsi:type="xsd:string">b</colour>
+                <sex xsi:type="xsd:string">g</sex>
+                <bred xsi:type="xsd:string">IRE</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">25</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">1</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">63</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Pivotal</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1993</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">My-Lorraine</name>
+                  <bred xsi:type="xsd:string">IRE</bred>
+                  <yearBorn xsi:type="xsd:string">1994</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Mac's Imp</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1988</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">1500142</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00041945.jpg</silksURL>
+                <silksText xsi:type="xsd:string">Black, orange epaulets, diamonds on sleeves</silksText>
+                <trainerName xsi:type="xsd:string">Paul Midgley</trainerName>
+                <ageWeight xsi:type="xsd:string">8/9-6</ageWeight>
+                <form xsi:type="xsd:string">90850-9</form>
+                <daysSince xsi:type="xsd:int">29</daysSince>
+                <jockeyClaim xsi:type="xsd:int">7</jockeyClaim>
+                <wearing xsi:type="xsd:string">visor</wearing>
+                <saddleCloth xsi:type="xsd:int">2</saddleCloth>
+                <stallDraw xsi:type="xsd:int">8</stallDraw>
+                <ownerName xsi:type="xsd:string">Mr Anthony D. Copley</ownerName>
+                <jockeyName xsi:type="xsd:string">Ned Curtis</jockeyName>
+                <colour xsi:type="xsd:string">ch</colour>
+                <sex xsi:type="xsd:string">f</sex>
+                <bred xsi:type="xsd:string">GB</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">16</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">1</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">68</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Ishiguru</name>
+                  <bred xsi:type="xsd:string">USA</bred>
+                  <yearBorn xsi:type="xsd:string">1998</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Statuette</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1994</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Statoblest</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1986</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+              <n2:RacingSilk xsi:type="n2:RacingSilkV2">
+                <selectionId xsi:type="xsd:int">5521912</selectionId>
+                <silksURL xsi:type="xsd:string">c20120508cat/00024544.jpg</silksURL>
+                <silksText xsi:type="xsd:string">Maroon, grey cross of lorraine</silksText>
+                <trainerName xsi:type="xsd:string">Christopher Wilson</trainerName>
+                <ageWeight xsi:type="xsd:string">4/8-7</ageWeight>
+                <form xsi:type="xsd:string">082100-</form>
+                <daysSince xsi:type="xsd:int">196</daysSince>
+                <jockeyClaim xsi:type="xsd:int">0</jockeyClaim>
+                <wearing xsi:nil="1"/>
+                <saddleCloth xsi:type="xsd:int">11</saddleCloth>
+                <stallDraw xsi:type="xsd:int">7</stallDraw>
+                <ownerName xsi:type="xsd:string">Mr David Bartlett</ownerName>
+                <jockeyName xsi:type="xsd:string">Tom Eaves</jockeyName>
+                <colour xsi:type="xsd:string">ch</colour>
+                <sex xsi:type="xsd:string">f</sex>
+                <bred xsi:type="xsd:string">GB</bred>
+                <forecastPriceNumerator xsi:type="xsd:int">18</forecastPriceNumerator>
+                <forecastPriceDenominator xsi:type="xsd:int">1</forecastPriceDenominator>
+                <officialRating xsi:type="xsd:int">55</officialRating>
+                <sire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Blue Dakota</name>
+                  <bred xsi:type="xsd:string">IRE</bred>
+                  <yearBorn xsi:type="xsd:string">2002</yearBorn>
+                </sire>
+                <dam xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Kungfu Kerry</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1999</yearBorn>
+                </dam>
+                <damSire xsi:type="n2:Breeding">
+                  <name xsi:type="xsd:string">Celtic Swing</name>
+                  <bred xsi:type="xsd:string">UK</bred>
+                  <yearBorn xsi:type="xsd:string">1992</yearBorn>
+                </damSire>
+              </n2:RacingSilk>
+            </racingSilks>
+            <errorCode xsi:type="n2:MarketDisplayErrorEnum">OK</errorCode>
+          </n2:MarketDisplayDetail>
+        </marketDisplayDetails>
+      </n:Result>
+    </n:getSilksV2Response>
+  </soap:Body>
+</soap:Envelope>

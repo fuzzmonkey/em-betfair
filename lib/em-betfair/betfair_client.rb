@@ -20,6 +20,12 @@ module Betfair
       @session_token = nil
     end
 
+    # Rate limits
+    # get_market 5
+    # get_market_info
+    # get_market_prices_compressed 60
+    # get_market_traded_volume_compressed 60
+
     # Creates a session on the Betfair API, used by Betfair::Client internally to maintain session.
     def login &block
       build_request "global", "login", {"username" => @config["username"], "password" => @config["password"], "product_id" => @config["product_id"]}, block
@@ -45,6 +51,16 @@ module Betfair
     def get_market market_id, &block
       with_session do
         build_request "exchange", "get_market", {"market_id" => market_id }, block
+      end
+    end
+
+    # Returns the runner details for specifc markets.
+    # 
+    # @param [Array] market_ids Betfair market IDs
+    # @return [Betfair::Response]
+    def get_silks_v2 market_ids, &block
+      with_session do
+        build_request "exchange", "get_silks_v2", {"market_ids" => market_ids }, block
       end
     end
 
