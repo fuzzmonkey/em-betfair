@@ -13,7 +13,7 @@ em-betfair is a work in progress evented client for the Betfair API. The followi
 
 	gem install em-betfair
 
-	gem "em-betfair", "~> 0.1"
+	gem "em-betfair", "~> 0.3"
 
 Create an instance of the client
 
@@ -24,7 +24,10 @@ Create an instance of the client
 	  "exchange_endpoint" => "https://api.betfair.com/exchange/v5/BFExchangeService",
 	  "global_endpoint" => "https://api.betfair.com/global/v3/BFGlobalService"
 	}
-	bf_client = Betfair::Client.new(config)
+	# Need to create the client inside the reactor for the periodic timer for handling rate limiting to be initialised.
+	EM::run {
+		bf_client = Betfair::Client.new(config)
+	}
 
 Making a call to the API:
 
@@ -42,6 +45,21 @@ Making a call to the API:
 	}
 
 Note, logging in to the API is handled internally by the client.
+
+# Rate Limiting
+
+If you're using the free access Betfair API then you will be subject to rate limiting. Going over the limits can incur charges on your account. To accommodate this, the em-betfair client has built in support for rate limits using EventMachine periodical timers. As requests are a made, an internal hash is updated which is reset every 60 seconds. Before each request to the API is made the number of requests for the given request is checked against the rate limits and the request delayed by 30 seconds if the limit has been reached.
+
+For more information on the rate limits imposed on the free access API see [here](http://bdp.betfair.com/index.php?option=com_content&task=view&id=36&Itemid=62).
+
+# TODO
+
+ * Add support for Fibers to untangle the code.
+ * Build logic for finding Win markets in the client.
+ * Improve rate limit hash reaper. It might be better to timestamp each request and only delete requests over 60s old, rather than blowing away the entire hash.
+ * Finish / improve rate limit tests.
+ * Write code to handle place_bet.
+ * Handle login / session management better.
 
 # Ruby versions
 
