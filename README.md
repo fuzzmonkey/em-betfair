@@ -48,7 +48,7 @@ Note, logging in to the API is handled internally by the client.
 
 # Rate Limiting
 
-If you're using the free access Betfair API then you will be subject to rate limiting. Going over the limits can incur charges on your account. To accommodate this, the em-betfair client has built in support for rate limits using EventMachine periodical timers. As requests are a made, an internal hash is updated which is reset every 60 seconds. Before each request to the API is made the number of requests for the given request is checked against the rate limits and the request delayed by 30 seconds if the limit has been reached.
+If you're using the free access Betfair API then you will be subject to rate limiting. Going over the limits can incur charges on your account. To accommodate this, the em-betfair client has built in support for rate limits using EventMachine timers. As requests are made, an internal hash is updated containing the request type and number of requests made. This hash is reset every 60 seconds. Before each request to the API is made, the number of requests for the given request is checked against the rate limits and the request delayed by 30 seconds if the limit has been reached.
 
 For more information on the rate limits imposed on the free access API see [here](http://bdp.betfair.com/index.php?option=com_content&task=view&id=36&Itemid=62).
 
