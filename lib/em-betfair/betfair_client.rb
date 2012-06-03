@@ -3,6 +3,7 @@
 require 'uri'
 require 'em-http'
 require 'nokogiri'
+require 'logger'
 #require 'tzinfo'
 
 module Betfair
@@ -81,6 +82,16 @@ module Betfair
     def get_market_traded_volume_compressed market_id, currency_code=nil, &block
       with_session do
         build_request "exchange", "get_market_traded_volume_compressed", {"market_id" => market_id, "currency_code" => currency_code}, block
+      end
+    end
+
+    # Places bets on the BetFair API
+    # 
+    # @param [Array] bets Array of bets to be placed
+    # @return [Betfair::Response]
+    def place_bets bets, &block
+      with_session do
+        build_request "exchange", "place_bets", {"bets" => bets}, block
       end
     end
 

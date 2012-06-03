@@ -192,6 +192,21 @@ module Betfair
       traded_volumne_hash
     end
 
+    def place_bets xml
+      place_bets_array = []
+      # do the bets come back in the same order of the request ?
+      xml.xpath("//betResults/n2:PlaceBetsResult","n2" => "http://www.betfair.com/publicapi/types/exchange/v5/").each do |bet_xml|
+        bet_respose = {}
+        bet_respose["average_price_matched"] = bet_xml.xpath("averagePriceMatched").text
+        bet_respose["bet_id"] = bet_xml.xpath("betId").text
+        bet_respose["result_code"] = bet_xml.xpath("resultCode").text
+        bet_respose["size_matched"] = bet_xml.xpath("sizeMatched").text
+        bet_respose["success"] = bet_xml.xpath("success").text
+        place_bets_array << bet_respose
+      end
+      place_bets_array
+    end
+
   end
 
 end

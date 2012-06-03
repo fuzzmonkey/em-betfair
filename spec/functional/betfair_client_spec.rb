@@ -165,4 +165,24 @@ describe Betfair::Client do
 
   end
 
+  # TODO - test for multiple bets
+  describe "place_bets" do
+
+    it "should handle an OK response" do
+      stub_request(:post, "http://global.betfair.com").to_return(:body => load_response("login_ok.xml"), :status => 200)
+      stub_request(:post, "http://exchange.betfair.com").to_return(:body => load_response("place_bets.xml"), :status => 200)
+      EM::run {
+        bet = {"size" => 5.0, "asian_line_id" => 0, "bet_type" => "B", "bet_type_category_type" => "E", "bet_persistence_type" => "NONE", "market_id" => 1, "price" => 2.0, "selection_id" => 12300, "bsp_liability" => 0 }
+        @bf_client.place_bets [bet] do |rsp|
+          rsp.successfull.should eq true
+          rsp.error.should eq ""
+          rsp.hash_response.should be_an_instance_of Hash
+          rsp.parsed_response.xpath("//betResults/n2:PlaceBetsResult/betId", "n2" => "http://www.betfair.com/publicapi/types/exchange/v5/").text.should_not be_nil
+          EM::stop
+        end
+      }
+    end
+
+  end
+
 end

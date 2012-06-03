@@ -8,6 +8,7 @@ em-betfair is a work in progress evented client for the Betfair API. The followi
 - getAllMarkets
 - getMarketPricesCompressed
 - getMarketTradedVolumeCompressed
+- placeBets
 
 # Usage
 
@@ -58,8 +59,8 @@ For more information on the rate limits imposed on the free access API see [here
  * Build logic for finding Win markets in the client.
  * Improve rate limit hash reaper. It might be better to timestamp each request and only delete requests over 60s old, rather than blowing away the entire hash.
  * Finish / improve rate limit tests.
- * Write code to handle place_bet.
  * Handle login / session management better.
+ * Add logging
 
 # Ruby versions
 

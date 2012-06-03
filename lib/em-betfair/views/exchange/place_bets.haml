@@ -1,0 +1,23 @@
+%soapenv:Envelope{"xmlns:soapenv" => "http://schemas.xmlsoap.org/soap/envelope/", "xmlns:bfex" => "http://www.betfair.com/publicapi/v5/BFExchangeService/", "xmlns:v5" => "http://www.betfair.com/publicapi/types/exchange/v5/" }
+  %soapenv:Header
+  %soapenv:Body
+    %bfex:placeBets
+      %bfex:request
+        %header
+          - if @data["client_stamp"]
+            %clientStamp= @data["client_stamp"]
+          %sessionToken= @data["session_token"]
+        - if @data["locale"]
+          %locale= @data["locale"]
+        %bets
+          - @data["bets"].each do |bet|
+            %v5:PlaceBets
+              %asianLineId= bet["asian_line_id"]
+              %betType= bet["bet_type"]
+              %betCategoryType= bet["bet_type_category_type"]
+              %betPersistenceType= bet["bet_persistence_type"]
+              %marketId= bet["market_id"]
+              %price= bet["price"]
+              %selectionId= bet["selection_id"]
+              %size= bet["size"]
+              %bspLiability= bet["bsp_liability"]

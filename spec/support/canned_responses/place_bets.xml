@@ -1,0 +1,25 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:n2="http://www.betfair.com/publicapi/types/exchange/v5/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<soap:Body>
+		<n:placeBetsResponse xmlns:n="http://www.betfair.com/publicapi/v5/BFExchangeService/">
+			<n:Result xsi:type="n2:PlaceBetsResp">
+				<header xsi:type="n2:APIResponseHeader">
+					<errorCode xsi:type="n2:APIErrorEnum">OK</errorCode>
+					<minorErrorCode xsi:nil="1"></minorErrorCode>
+					<sessionToken xsi:type="xsd:string">T0fSCYclMyf2iuL4FbGQyoINXuNeaxpKxtAq/7VnAjo=</sessionToken>
+					<timestamp xsi:type="xsd:dateTime">2011-10-30T08:18:51.211Z</timestamp>
+				</header>
+				<betResults xsi:type="n2:ArrayOfPlaceBetsResult">
+					<n2:PlaceBetsResult xsi:type="n2:PlaceBetsResult">
+						<averagePriceMatched xsi:type="xsd:double">5.2</averagePriceMatched>
+						<betId xsi:type="xsd:long">16939643915</betId>
+						<resultCode xsi:type="n2:PlaceBetsResultEnum">OK</resultCode>
+						<sizeMatched xsi:type="xsd:double">5.0</sizeMatched>
+						<success xsi:type="xsd:boolean">true</success>
+					</n2:PlaceBetsResult>
+				</betResults>
+				<errorCode xsi:type="n2:PlaceBetsErrorEnum">OK</errorCode>
+				<minorErrorCode xsi:nil="1"></minorErrorCode>
+			</n:Result>
+		</n:placeBetsResponse>
+	</soap:Body>
+</soap:Envelope>
