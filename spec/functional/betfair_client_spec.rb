@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'webmock/rspec'
+require 'logger'
 
 config = {
   "username" => "some_username", 
@@ -13,7 +14,8 @@ config = {
 describe Betfair::Client do
 
   before :all do
-    @bf_client = Betfair::Client.new(config)
+    logger = Logger.new(STDOUT)
+    @bf_client = Betfair::Client.new(config, logger)
   end
 
   describe "SOAP faults" do
@@ -176,7 +178,7 @@ describe Betfair::Client do
         @bf_client.place_bets [bet] do |rsp|
           rsp.successfull.should eq true
           rsp.error.should eq ""
-          rsp.hash_response.should be_an_instance_of Hash
+          rsp.hash_response.should be_an_instance_of Array
           rsp.parsed_response.xpath("//betResults/n2:PlaceBetsResult/betId", "n2" => "http://www.betfair.com/publicapi/types/exchange/v5/").text.should_not be_nil
           EM::stop
         end

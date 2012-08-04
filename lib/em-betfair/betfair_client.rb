@@ -18,10 +18,11 @@ module Betfair
 
     # config -          hash of betfair credentials & API endpoints
     #                   { "username" => "<YOUR BETFAIR USERNAME>", "password" => "<YOUR BETFAIR PASSWORD>", "product_id" => "<YOUR BETFAIR PRODUCTID>", "exchange_endpoint" => "https://api.betfair.com/exchange/v5/BFExchangeService", "global_endpoint" => "https://api.betfair.com/global/v3/BFGlobalService" }
-    def initialize config
+    def initialize config, logger=nil
       @config = config
       @session_token = nil
       @num_requests = {}
+      @logger = logger if logger
       EventMachine::PeriodicTimer.new(60) { reset_requests } if EM.reactor_running?
     end
 
@@ -104,7 +105,7 @@ module Betfair
     # data -            hash of parameters to populate the SOAP request
     # block -           the ballback for this request
     def build_request service_name, request_action, data={}, block
-      puts "building request #{service_name} #{request_action}"
+      log :debug, "building request #{service_name} #{request_action}"
       if defer_request? request_action
         EventMachine::Timer.new(30) { build_request(service_name, request_action, data, block) }
         return
@@ -112,6 +113,7 @@ module Betfair
       increment_num_requests request_action unless @session_token && request_action == "login"
       request_data = { :data => data.merge!({"session_token" => @session_token}) }
       soap_req = Betfair::SOAPRenderer.new( service_name, request_action ).render( request_data )
+      log :debug, soap_req
       url = get_endpoint service_name
       headers = { 'SOAPAction' => request_action, 'Accept-Encoding' => 'gzip,deflate', 'Content-type' => 'text/xml;charset=UTF-8' }
       req = EventMachine::HttpRequest.new(url).post :body => soap_req, :head => headers
@@ -124,23 +126,22 @@ module Betfair
     # @param [String] raw_rsp  response body from EM:Http request
     # block [block] block callback for this request
     def parse_response request_action, raw_rsp, block
+      log :debug, raw_rsp
       parsed_response = Nokogiri::XML raw_rsp
 
       soap_fault = parsed_response.xpath("//faultstring").first
-      puts soap_fault
       if soap_fault
+        log :error, "SOAP Error: #{soap_fault.text}"
         block.call(Response.new(raw_rsp,parsed_response,false,soap_fault.text))
         return
       end
 
       api_error = parsed_response.xpath("//header/errorCode").text
       method_error = parsed_response.xpath("//errorCode").last.text
-      
-      puts api_error
-      puts method_error
 
       error_rsp = api_error == "OK" ? method_error : api_error
       unless api_error == "OK" && method_error == "OK"
+        log :error, "API Error: #{api_error} | METHOD Error: #{method_error}"
         @session_token = nil if [api_error,method_error].include?("NO_SESSION") # so we try and login on the next request
         block.call(Response.new(raw_rsp,parsed_response,false,error_rsp))
         return
@@ -164,7 +165,6 @@ module Betfair
     def increment_num_requests request_action
       @num_requests[request_action] ||= 0
       @num_requests[request_action] +=1
-      # puts "#{request_action} set to #{@num_requests[request_action]}"
     end
 
     def reset_requests
@@ -176,10 +176,13 @@ module Betfair
     # @return [boolean] whether the request should be deferred
     def defer_request? request_action
       return false unless REQUEST_RATE_LIMITS[request_action] && @config["product_id"] != FREE_PRODUCT_ID
-      # puts "defer_request? #{request_action} : #{@num_requests[request_action].to_i >= REQUEST_RATE_LIMITS[request_action]}"
-      # puts "Rate limit : #{REQUEST_RATE_LIMITS[request_action]}"
-      # puts "Requests this minute : #{@num_requests[request_action]}"
-      return @num_requests[request_action].to_i >= REQUEST_RATE_LIMITS[request_action]
+      defer = @num_requests[request_action].to_i >= REQUEST_RATE_LIMITS[request_action]
+      log :debug, "Request rate limit: #{REQUEST_RATE_LIMITS[request_action]} | Requests this minute: #{@num_requests[request_action]} | Deferring - #{defer}"
+      return defer
+    end
+
+    def log level, message
+      @logger.send level, message if @logger
     end
 
   end
