@@ -105,7 +105,6 @@ module Betfair
     # service_name -    the endpoint to use (exchange or global)
     # action -          the API method to call on the API
     # data -            hash of parameters to populate the SOAP request
-    # block -           the ballback for this request
     def make_request service_name, request_action, data={}
       log :debug, "building request #{service_name} #{request_action}"
       if defer_request? request_action
@@ -129,8 +128,8 @@ module Betfair
 
     # Parses the API response, building a response object
     # 
+    # @param [String] request_action SOAP action of the request
     # @param [String] raw_rsp  response body from EM:Http request
-    # block [block] block callback for this request
     def parse_response request_action, raw_rsp
       log :debug, raw_rsp
       parsed_response = Nokogiri::XML raw_rsp
