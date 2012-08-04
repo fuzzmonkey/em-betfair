@@ -25,6 +25,7 @@ module Betfair
       @session_token = nil
       @num_requests = {}
       @logger = logger if logger
+      @log_requests = false
       EventMachine::PeriodicTimer.new(60) { reset_requests } if EM.reactor_running?
     end
 
@@ -108,22 +109,21 @@ module Betfair
     def make_request service_name, request_action, data={}
       log :debug, "building request #{service_name} #{request_action}"
       if defer_request? request_action
+        #@logger.error "request limit exceeded"
         #EventMachine::Timer.new(30) { make_request(make_request, request_action, data) }
-        return
+        return Response.new(nil,nil,false,"Rate Limit Exceeded")
       end
       increment_num_requests request_action unless @session_token && request_action == "login"
       request_data = { :data => data.merge!({"session_token" => @session_token}) }
       soap_req = Betfair::SOAPRenderer.new( service_name, request_action ).render( request_data )
-      log :debug, soap_req
+      log :debug, soap_req if @log_requests
       url = get_endpoint service_name
       headers = { 'SOAPAction' => request_action, 'Accept-Encoding' => 'gzip,deflate', 'Content-type' => 'text/xml;charset=UTF-8' }
       f = Fiber.current
-      request = EventMachine::HttpRequest.new(url).post :body => soap_req, :head => headers
-      request.callback { f.resume(request) }
-      request.errback  { f.resume(request) }
+      http = EventMachine::HttpRequest.new(url).post :body => soap_req, :head => headers
+      http.callback { f.resume(parse_response(request_action,http.response)) }
+      http.errback { f.resume(Response.new(nil,nil,false,"Error connecting to the API")) }
       Fiber.yield
-      return Response.new(nil,nil,false,"Error connecting to the API") if request.error
-      return parse_response(request_action,request.response) unless request.error
     end
 
     # Parses the API response, building a response object
@@ -131,7 +131,7 @@ module Betfair
     # @param [String] request_action SOAP action of the request
     # @param [String] raw_rsp  response body from EM:Http request
     def parse_response request_action, raw_rsp
-      log :debug, raw_rsp
+      log :debug, raw_rsp if @log_requests
       parsed_response = Nokogiri::XML raw_rsp
 
       soap_fault = parsed_response.xpath("//faultstring").first
@@ -178,7 +178,7 @@ module Betfair
     # @param [String] request_action soap request to check limits for
     # @return [boolean] whether the request should be deferred
     def defer_request? request_action
-      return false unless REQUEST_RATE_LIMITS[request_action] && @config["product_id"] != FREE_PRODUCT_ID
+      return false unless REQUEST_RATE_LIMITS[request_action] && @config["product_id"] == FREE_PRODUCT_ID
       defer = @num_requests[request_action].to_i >= REQUEST_RATE_LIMITS[request_action]
       log :debug, "Request rate limit: #{REQUEST_RATE_LIMITS[request_action]} | Requests this minute: #{@num_requests[request_action]} | Deferring - #{defer}"
       return defer
