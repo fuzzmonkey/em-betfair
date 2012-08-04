@@ -155,8 +155,9 @@ module Betfair
     end
 
     def with_session
-      yield unless @session_token.nil?
-      login
+      return yield unless @session_token.nil?
+      rsp = login
+      return rsp unless rsp.successfull
       yield
     end
 

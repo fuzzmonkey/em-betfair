@@ -1,0 +1,6 @@
+username: username
+password: password
+product_id: 82
+exchange_endpoint: "https://api.betfair.com/exchange/v5/BFExchangeService" 
+global_endpoint: "https://api.betfair.com/global/v3/BFGlobalService"
+silks_base_url: "http://content-cache.betfair.com/feeds_images/Horses/SilkColours/"

@@ -4,3 +4,4 @@ doc/
 Gemfile.lock
 .rvmrc
 *.gem
+examples/etc
