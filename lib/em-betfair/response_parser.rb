@@ -194,7 +194,7 @@ module Betfair
 
     def place_bets xml
       place_bets_array = []
-      # do the bets come back in the same order of the request ?
+      # TODO do the bets come back in the same order of the request ?
       xml.xpath("//betResults/n2:PlaceBetsResult","n2" => "http://www.betfair.com/publicapi/types/exchange/v5/").each do |bet_xml|
         bet_respose = {}
         bet_respose["average_price_matched"] = bet_xml.xpath("averagePriceMatched").text
