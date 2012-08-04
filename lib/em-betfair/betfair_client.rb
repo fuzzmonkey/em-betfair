@@ -16,8 +16,9 @@ module Betfair
 
     attr_accessor :session_token
 
-    # config -          hash of betfair credentials & API endpoints
+    # @param [Hash] config hash of betfair credentials & API endpoints
     #                   { "username" => "<YOUR BETFAIR USERNAME>", "password" => "<YOUR BETFAIR PASSWORD>", "product_id" => "<YOUR BETFAIR PRODUCTID>", "exchange_endpoint" => "https://api.betfair.com/exchange/v5/BFExchangeService", "global_endpoint" => "https://api.betfair.com/global/v3/BFGlobalService" }
+    # @param [Object] logger optional class for logging that responds to debug and error
     def initialize config, logger=nil
       @config = config
       @session_token = nil

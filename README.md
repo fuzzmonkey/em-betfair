@@ -27,7 +27,8 @@ Create an instance of the client
 	}
 	# Need to create the client inside the reactor for the periodic timer for handling rate limiting to be initialised.
 	EM::run {
-		bf_client = Betfair::Client.new(config)
+		logger = Logger.new(STDOUT) #optional
+		bf_client = Betfair::Client.new(config,logger)
 	}
 
 Making a call to the API:
@@ -60,7 +61,6 @@ For more information on the rate limits imposed on the free access API see [here
  * Improve rate limit hash reaper. It might be better to timestamp each request and only delete requests over 60s old, rather than blowing away the entire hash.
  * Finish / improve rate limit tests.
  * Handle login / session management better.
- * Add logging
 
 # Ruby versions
 
