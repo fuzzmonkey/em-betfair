@@ -57,7 +57,6 @@ For more information on the rate limits imposed on the free access API see [here
 # TODO
 
  * Add support for Fibers to untangle the code.
- * Build logic for finding Win markets in the client.
  * Improve rate limit hash reaper. It might be better to timestamp each request and only delete requests over 60s old, rather than blowing away the entire hash.
  * Finish / improve rate limit tests.
  * Handle login / session management better.
