@@ -12,25 +12,25 @@ config = {
 
 describe Betfair::Client do
 
-  describe "free API" do
-
-    it "should enable rate limiting" do
-      stub_request(:post, "http://global.betfair.com").to_return(:body => load_response("login_ok.xml"), :status => 200)
-      stub_request(:post, "http://exchange.betfair.com").with(:headers => {"SOAPAction" => "get_all_markets"}).to_return(:body => load_response("get_all_markets.xml"), :status => 200)
-      stub_request(:post, "http://exchange.betfair.com").with(:headers => {"SOAPAction" => "get_market"}).to_return(:body => load_response("get_market.xml"), :status => 200)
-      EM::run {
-        bf_client = Betfair::Client.new(config)
-        bf_client.get_all_markets do |rsp|
-          rsp.hash_response["market_data"].each do |mkt_id,market_data|
-            bf_client.get_market mkt_id do |rsp|
-              puts "Got data for #{mkt_id}"
-            end
-          end
-        end
-      }
-    end
-
-  end
+  # describe "free API" do
+  # 
+  #   it "should enable rate limiting" do
+  #     stub_request(:post, "http://global.betfair.com").to_return(:body => load_response("login_ok.xml"), :status => 200)
+  #     stub_request(:post, "http://exchange.betfair.com").with(:headers => {"SOAPAction" => "get_all_markets"}).to_return(:body => load_response("get_all_markets.xml"), :status => 200)
+  #     stub_request(:post, "http://exchange.betfair.com").with(:headers => {"SOAPAction" => "get_market"}).to_return(:body => load_response("get_market.xml"), :status => 200)
+  #     EM::run {
+  #       bf_client = Betfair::Client.new(config)
+  #       Fiber.new {
+  #         markets = bf_client.get_all_markets
+  #         markets.hash_response["market_data"].each do |mkt_id,market_data|
+  #           market = bf_client.get_market mkt_id 
+  #           puts "Got data for #{mkt_id}"
+  #         end
+  #       }.resume
+  #     }
+  #   end
+  # 
+  # end
 
   # describe "paid API" do
   # 

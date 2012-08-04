@@ -34,16 +34,16 @@ Create an instance of the client
 Making a call to the API:
 
 	EM::run {
-	  bf_client.get_all_markets do |rsp|
+		Fiber.new do
+			rsp = bf_client.get_all_markets
 
-	    rsp.raw_response # access the raw response body
-	    rsp.parsed_response # access the Nokogiri XML object of the raw response
-	    rsp.hash_response # access a hash of the response data
+			rsp.successfull # boolean for success
+			rsp.error # API error message if not successfull
 
-	    rsp.successfull # boolean for success
-	    rsp.error # API error message if not successfull
-
-	  end
+			rsp.raw_response # access the raw response body
+			rsp.parsed_response # access the Nokogiri XML object of the raw response
+			rsp.hash_response # access a hash of the response data
+		end.resume
 	}
 
 Note, logging in to the API is handled internally by the client.

@@ -18,10 +18,11 @@ describe Betfair::Client do
 
     it "should work against a remote API" do
       # EM::run {
-      #   @bf_client.get_all_markets ["GBR"],[7] do |response|
+      # Fiber.new {
+      #   response = @bf_client.get_all_markets ["GBR"],[7]
       #     puts response.raw_response
       #     EM::stop
-      #   end
+      #   }.resume
       # }
     end
 
@@ -31,10 +32,11 @@ describe Betfair::Client do
 
     it "should work against a remote API" do
       # EM::run {
-      #   @bf_client.get_market "104968439" do |response|
+      # Fiber.new {
+      #   response = @bf_client.get_market "104968439"
       #     puts response.raw_response
       #     EM::stop
-      #   end
+      #   }.resume
       # }
     end
 
@@ -44,10 +46,11 @@ describe Betfair::Client do
 
     it "should work against a remote API" do
       # EM::run {
-      #   @bf_client.get_silks_v2 [105668397] do |response|
+      #   Fiber.new {
+      #   response = @bf_client.get_silks_v2 [105668397]
       #     puts response.raw_response
       #     EM::stop
-      #   end
+      #   }.resume
       # }
     end
 
@@ -57,10 +60,11 @@ describe Betfair::Client do
 
     it "should work against a remote API" do
       # EM::run {
-      #   @bf_client.get_market_prices_compressed "104968512" do |response|
+      # Fiber.new {
+      #   response = @bf_client.get_market_prices_compressed "104968512"
       #     puts response.raw_response
       #     EM::stop
-      #   end
+      #   }.resume
       # }
     end
 
@@ -70,10 +74,11 @@ describe Betfair::Client do
 
     it "should work against a remote API" do
       # EM::run {
-      #   @bf_client.get_market_traded_volume_compressed "104968512" do |response|
+      # Fiber.new {
+      #   response = @bf_client.get_market_traded_volume_compressed "104968512"
       #     puts response.raw_response
       #     EM::stop
-      #   end
+      #   }.resume
       # }
     end
 
