@@ -21,7 +21,7 @@ module Betfair
     # @return hash of get_all_markets response
     def get_all_markets xml
       market_data = xml.xpath("//marketData").text
-      all_markets_hash = {"market_data" => {}}
+      all_markets_hash = {"market_data" => {}, "bsp_markets" => []}
       market_data.split(":").each do |market|
         market_fields = market.split("~")
         next unless market_fields.size >= 16 #incase they append more fields
@@ -42,7 +42,7 @@ module Betfair
         market_hash["total_amount_matched"] = market_fields[13]
         market_hash["bsp_market"] = market_fields[14] == "Y"
         market_hash["turning_in_play"] = market_fields[15] == "Y"
-
+        all_markets_hash["bsp_markets"] << market_hash if market_fields[14] == "Y"
         all_markets_hash["market_data"][market_fields[0]] = market_hash
       end
       all_markets_hash
