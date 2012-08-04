@@ -108,7 +108,7 @@ module Betfair
     def make_request service_name, request_action, data={}
       log :debug, "building request #{service_name} #{request_action}"
       if defer_request? request_action
-        EventMachine::Timer.new(30) { build_request(make_request, request_action, data) }
+        #EventMachine::Timer.new(30) { make_request(make_request, request_action, data) }
         return
       end
       increment_num_requests request_action unless @session_token && request_action == "login"
