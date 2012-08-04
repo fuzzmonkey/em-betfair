@@ -1,6 +1,6 @@
 # Betfair API client using Eventmachine and EM-Http
 
-em-betfair is a work in progress evented client for the Betfair API. The following API calls have been implemented :
+em-betfair is a work in progress evented client for the Betfair API. The client makes use of Fibers so is only compatible with 1.9+.The following API calls have been implemented :
 
 - login
 - getMarket
@@ -56,11 +56,10 @@ For more information on the rate limits imposed on the free access API see [here
 
 # TODO
 
- * Add support for Fibers to untangle the code.
  * Improve rate limit hash reaper. It might be better to timestamp each request and only delete requests over 60s old, rather than blowing away the entire hash.
  * Finish / improve rate limit tests.
  * Handle login / session management better.
 
 # Ruby versions
 
-Tested on 1.9.2 but should work on 1.8.7 too.
+Tested on 1.9.2.
